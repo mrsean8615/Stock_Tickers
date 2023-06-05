@@ -13,7 +13,7 @@ def create_data(tickers):
     time_key = 'Time Series (Daily)'
     adj_close_key = '5. adjusted close'
     
-    csv_file = open(f"/home/ubuntu/environment/final_project/data/{ticker}.csv", 'w')
+    csv_file = open(f"data/{ticker}.csv", 'w')
     
     lst = []
     for date in data[time_key]:
@@ -30,11 +30,11 @@ def create_data(tickers):
 
 def read_data(ticker):
     prices = []
-    with open(f'/home/ubuntu/environment/final_project/data/{ticker}.csv') as data:
+    with open(f'data/{ticker}.csv') as data:
         for row in data:
             ticker, date, adj_close = row.split(",")
             prices.append(float(adj_close.replace('\n', "")))
-            
+
     return ticker, prices
 
 def meanReversionStrategy(prices, ticker):
@@ -76,7 +76,6 @@ def meanReversionStrategy(prices, ticker):
         i += 1
     
     returnPercent = f"{round((profit / firstBuy) * 100, 2)}%"
-    
     output(profit, firstBuy, returnPercent)
     return round(profit, 2), returnPercent
 
@@ -174,7 +173,7 @@ def bollingerMethod(prices, ticker):
     
 #Outputting to JSON
 def saveResults(result): 
-    json.dump(dictionary, open(f'/home/ubuntu/environment/final_project/results.json', "w"), indent=4)
+    json.dump(dictionary, open(f'results.json', "w"), indent=4)
 
 def output(profit, firstBuy, returnPercent):
     #Output
